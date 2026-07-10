@@ -3,19 +3,19 @@
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <h2 class="text-xl font-bold text-slate-800">
-                    Manajemen Barang
+                    Barang Keluar
                 </h2>
 
                 <p class="mt-1 text-sm text-slate-500">
-                    Kelola seluruh barang ritel yang tersedia.
+                    Riwayat pengeluaran barang ke pelanggan.
                 </p>
             </div>
 
             <a
-                href="{{ route('items.create') }}"
+                href="{{ route('goods-issues.create') }}"
                 class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700"
             >
-                + Tambah Barang
+                + Catat Barang Keluar
             </a>
         </div>
     </x-slot>
@@ -39,27 +39,23 @@
                             <tr>
 
                                 <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
-                                    No
+                                    No. Transaksi
                                 </th>
 
                                 <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
-                                    Nama Barang
+                                    Tanggal
                                 </th>
 
                                 <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
-                                    Kategori
+                                    Jumlah Baris
                                 </th>
 
                                 <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
-                                    Supplier
+                                    Total Qty
                                 </th>
 
                                 <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
-                                    Harga
-                                </th>
-
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
-                                    Stok
+                                    Diinput Oleh
                                 </th>
 
                                 <th class="px-6 py-4 text-right text-xs font-bold uppercase tracking-wider text-slate-500">
@@ -71,76 +67,35 @@
 
                         <tbody class="divide-y divide-slate-100 bg-white">
 
-                            @forelse($items as $item)
+                            @forelse($goodsIssues as $goodsIssue)
 
                                 <tr class="transition hover:bg-slate-50">
 
-                                    {{-- Nomor --}}
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
-                                        {{ $items->firstItem() + $loop->index }}
-                                    </td>
-
-                                    {{-- Nama --}}
-                                    <td class="px-6 py-4">
-                                        <div class="font-semibold text-slate-800">
-                                            {{ $item->name }}
-                                        </div>
-                                    </td>
-
-                                    {{-- Kategori --}}
+                                    {{-- No. Transaksi --}}
                                     <td class="whitespace-nowrap px-6 py-4">
-                                        <span class="rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-700">
-                                            {{ $item->category?->name ?? '-' }}
+                                        <span class="font-mono text-sm font-semibold text-slate-800">
+                                            {{ $goodsIssue->transaction_number }}
                                         </span>
                                     </td>
 
-                                    {{-- Supplier --}}
-                                    <td class="px-6 py-4">
-
-                                        @forelse($item->suppliers as $supplier)
-
-                                            <span class="mb-1 mr-1 inline-flex rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
-                                                {{ $supplier->name }}
-                                            </span>
-
-                                        @empty
-
-                                            <span class="text-sm italic text-slate-400">
-                                                Tidak ada supplier
-                                            </span>
-
-                                        @endforelse
-
+                                    {{-- Tanggal --}}
+                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600">
+                                        {{ $goodsIssue->issue_date->format('d M Y') }}
                                     </td>
 
-                                    {{-- Harga --}}
-                                    <td class="whitespace-nowrap px-6 py-4 font-semibold text-slate-700">
-                                        Rp {{ number_format($item->price, 0, ',', '.') }}
+                                    {{-- Jumlah Baris --}}
+                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600">
+                                        {{ $goodsIssue->items->count() }} barang
                                     </td>
 
-                                    {{-- Stok (total lintas supplier) --}}
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    {{-- Total Qty --}}
+                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600">
+                                        {{ $goodsIssue->items->sum('quantity') }}
+                                    </td>
 
-                                        @if(($item->total_stock ?? 0) == 0)
-
-                                            <span class="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-700">
-                                                Habis
-                                            </span>
-
-                                        @elseif($item->total_stock <= 10)
-
-                                            <span class="rounded-full bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-700">
-                                                {{ $item->total_stock }} (Menipis)
-                                            </span>
-
-                                        @else
-
-                                            <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
-                                                {{ $item->total_stock }}
-                                            </span>
-
-                                        @endif
-
+                                    {{-- Diinput Oleh --}}
+                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600">
+                                        {{ $goodsIssue->user?->name ?? '-' }}
                                     </td>
 
                                     {{-- Aksi --}}
@@ -149,23 +104,16 @@
                                         <div class="flex justify-end gap-2">
 
                                             <a
-                                                href="{{ route('items.show', $item) }}"
-                                                class="rounded-lg border border-sky-200 bg-sky-50 px-3 py-2 text-xs font-semibold text-sky-700 transition hover:bg-sky-100"
-                                            >
-                                                Detail
-                                            </a>
-
-                                            <a
-                                                href="{{ route('items.edit', $item) }}"
+                                                href="{{ route('goods-issues.edit', $goodsIssue) }}"
                                                 class="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-700 transition hover:bg-amber-100"
                                             >
                                                 Edit
                                             </a>
 
                                             <form
-                                                action="{{ route('items.destroy', $item) }}"
+                                                action="{{ route('goods-issues.destroy', $goodsIssue) }}"
                                                 method="POST"
-                                                onsubmit="return confirm('Yakin ingin menghapus barang ini?')"
+                                                onsubmit="return confirm('Yakin ingin menghapus transaksi ini? Stok yang sudah dikurangi akan dikembalikan.')"
                                             >
                                                 @csrf
                                                 @method('DELETE')
@@ -189,21 +137,21 @@
 
                                 <tr>
 
-                                    <td colspan="7" class="px-6 py-16 text-center">
+                                    <td colspan="6" class="px-6 py-16 text-center">
 
                                         <h3 class="text-lg font-semibold text-slate-700">
-                                            Belum Ada Barang
+                                            Belum Ada Transaksi Barang Keluar
                                         </h3>
 
                                         <p class="mt-2 text-sm text-slate-500">
-                                            Tambahkan barang pertama untuk mulai mengelola data barang.
+                                            Catat pengeluaran barang pertama ke pelanggan.
                                         </p>
 
                                         <a
-                                            href="{{ route('items.create') }}"
+                                            href="{{ route('goods-issues.create') }}"
                                             class="mt-6 inline-flex rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700"
                                         >
-                                            + Tambah Barang
+                                            + Catat Barang Keluar
                                         </a>
 
                                     </td>
@@ -217,10 +165,10 @@
                     </table>
                 </div>
 
-                @if($items->hasPages())
+                @if($goodsIssues->hasPages())
 
                     <div class="border-t border-slate-200 px-6 py-4">
-                        {{ $items->links() }}
+                        {{ $goodsIssues->links() }}
                     </div>
 
                 @endif

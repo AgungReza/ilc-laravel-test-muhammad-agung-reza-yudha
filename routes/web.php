@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GoodsIssueController;
+use App\Http\Controllers\GoodsReceiptController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ItemSupplierController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
@@ -54,11 +57,50 @@ Route::middleware('auth')->group(function () {
 
     /*
     |--------------------------------------------------------------------------
+    | Kelola Supplier per Barang (item_supplier)
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('items/{item}/suppliers/create', [ItemSupplierController::class, 'create'])
+        ->name('items.suppliers.create');
+
+    Route::post('items/{item}/suppliers', [ItemSupplierController::class, 'store'])
+        ->name('items.suppliers.store');
+
+    Route::get('items/{item}/suppliers/{supplier}/edit', [ItemSupplierController::class, 'edit'])
+        ->name('items.suppliers.edit');
+
+    Route::put('items/{item}/suppliers/{supplier}', [ItemSupplierController::class, 'update'])
+        ->name('items.suppliers.update');
+
+    Route::delete('items/{item}/suppliers/{supplier}', [ItemSupplierController::class, 'destroy'])
+        ->name('items.suppliers.destroy');
+
+    /*
+    |--------------------------------------------------------------------------
     | Supplier
     |--------------------------------------------------------------------------
     */
 
     Route::resource('suppliers', SupplierController::class);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Barang Masuk (Goods Receipt)
+    |--------------------------------------------------------------------------
+    */
+
+    Route::resource('goods-receipts', GoodsReceiptController::class)
+        ->except(['show']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Barang Keluar (Goods Issue)
+    |--------------------------------------------------------------------------
+    */
+
+    Route::resource('goods-issues', GoodsIssueController::class)
+        ->except(['show']);
 
     /*
     |--------------------------------------------------------------------------
@@ -98,4 +140,4 @@ Route::middleware(['auth', 'admin'])->group(function () {
 |--------------------------------------------------------------------------
 */
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -229,7 +229,7 @@
                         </div>
 
                         <p class="mt-4 text-xs font-medium text-amber-600">
-                            Barang dengan stok maksimal 5
+                            Kombinasi barang-supplier di bawah stok minimum
                         </p>
                     </div>
 
@@ -349,13 +349,13 @@
                                         <td class="whitespace-nowrap px-6 py-4">
                                             <span
                                                 class="rounded-full px-3 py-1 text-xs font-semibold
-                                                    {{ $item->stock <= 0
+                                                    {{ ($item->total_stock ?? 0) <= 0
                                                         ? 'bg-red-100 text-red-700'
-                                                        : ($item->stock <= 5
+                                                        : ($item->total_stock <= 5
                                                             ? 'bg-amber-100 text-amber-700'
                                                             : 'bg-emerald-100 text-emerald-700') }}"
                                             >
-                                                {{ $item->stock }}
+                                                {{ $item->total_stock ?? 0 }}
                                             </span>
                                         </td>
                                     </tr>
@@ -396,26 +396,27 @@
                     </div>
 
                     <div class="divide-y divide-slate-100">
-                        @forelse ($lowStockItems as $item)
+                        @forelse ($lowStockItems as $itemSupplier)
                             <div class="flex items-center justify-between gap-4 px-6 py-4">
                                 <div class="min-w-0">
                                     <p class="truncate font-semibold text-slate-800">
-                                        {{ $item->name }}
+                                        {{ $itemSupplier->item->name }}
                                     </p>
 
                                     <p class="mt-1 truncate text-xs text-slate-500">
-                                        {{ $item->category?->name ?? '-' }}
+                                        {{ $itemSupplier->item->category?->name ?? '-' }}
+                                        &middot; Supplier: {{ $itemSupplier->supplier->name }}
                                     </p>
                                 </div>
 
                                 <div class="shrink-0 text-right">
-                                    @if ($item->stock <= 0)
+                                    @if ($itemSupplier->stock <= 0)
                                         <span class="rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-700">
                                             Habis
                                         </span>
                                     @else
                                         <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-700">
-                                            Sisa {{ $item->stock }}
+                                            Sisa {{ $itemSupplier->stock }}
                                         </span>
                                     @endif
                                 </div>

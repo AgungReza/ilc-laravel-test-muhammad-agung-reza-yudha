@@ -3,11 +3,11 @@
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-xl font-bold text-slate-800">
-                    Tambah Supplier
+                    Edit Supplier {{ $supplier->name }}
                 </h2>
 
                 <p class="mt-1 text-sm text-slate-500">
-                    Lengkapi data supplier baru.
+                    Perbarui data supplier.
                 </p>
             </div>
 
@@ -24,10 +24,11 @@
             <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
 
                 <form
-                    action="{{ route('suppliers.store') }}"
+                    action="{{ route('suppliers.update', $supplier) }}"
                     method="POST"
                 >
                     @csrf
+                    @method('PUT')
 
                     {{-- ================= NAMA SUPPLIER ================= --}}
                     <div>
@@ -42,8 +43,7 @@
                             required
                             autofocus
                             autocomplete="off"
-                            value="{{ old('name') }}"
-                            placeholder="Contoh: CV Sumber Makmur"
+                            value="{{ old('name', $supplier->name) }}"
                             class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
 
@@ -63,9 +63,8 @@
                             name="address"
                             rows="3"
                             required
-                            placeholder="Alamat lengkap supplier"
                             class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        >{{ old('address') }}</textarea>
+                        >{{ old('address', $supplier->address) }}</textarea>
 
                         @error('address')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -84,8 +83,7 @@
                             type="text"
                             required
                             autocomplete="off"
-                            value="{{ old('phone') }}"
-                            placeholder="081234567890"
+                            value="{{ old('phone', $supplier->phone) }}"
                             class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
 
@@ -107,7 +105,7 @@
                             type="submit"
                             class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700"
                         >
-                            Simpan Supplier
+                            Simpan Perubahan
                         </button>
                     </div>
                 </form>

@@ -35,25 +35,6 @@
                         </a>
                     </div>
 
-                {{-- Cek Supplier --}}
-                @elseif ($suppliers->isEmpty())
-                    <div class="rounded-xl border border-red-200 bg-red-50 p-5">
-                        <h3 class="font-semibold text-red-800">
-                            Belum Ada Supplier
-                        </h3>
-
-                        <p class="mt-2 text-sm text-red-700">
-                            Tambahkan minimal satu supplier sebelum menambahkan barang.
-                        </p>
-
-                        <a
-                            href="{{ route('suppliers.create') }}"
-                            class="mt-4 inline-flex rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700"
-                        >
-                            Tambah Supplier
-                        </a>
-                    </div>
-
                 @else
 
                     <form
@@ -98,50 +79,27 @@
                             @enderror
                         </div>
 
-                        {{-- ================= SUPPLIER ================= --}}
+                        {{-- ================= KODE BARANG ================= --}}
                         <div class="mt-6">
                             <label
-                                for="supplier_ids"
+                                for="code"
                                 class="block text-sm font-semibold text-slate-700"
                             >
-                                Supplier
+                                Kode Barang
                             </label>
 
-                            <select
-                                id="supplier_id"
-                                name="supplier_id"
+                            <input
+                                id="code"
+                                name="code"
+                                type="text"
                                 required
-                                class="mt-2 block w-full rounded-lg border-slate-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                autocomplete="off"
+                                value="{{ old('code') }}"
+                                placeholder="Contoh : BRG-001"
+                                class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             >
-                                <option value="">
-                                    -- Pilih Supplier --
-                                </option>
 
-                                @foreach ($suppliers as $supplier)
-                                    <option
-                                        value="{{ $supplier->id }}"
-                                        @selected(old('supplier_id') == $supplier->id)
-                                    >
-                                        {{ $supplier->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-
-                            <p class="mt-2 text-xs text-slate-500">
-                                Tekan
-                                <span class="font-semibold">Ctrl</span>
-                                (Windows) atau
-                                <span class="font-semibold">Command</span>
-                                (Mac) untuk memilih lebih dari satu supplier.
-                            </p>
-
-                            @error('supplier_id')
-                                <p class="mt-2 text-sm text-red-600">
-                                    {{ $message }}
-                                </p>
-                            @enderror
-
-                            @error('supplier_ids.*')
+                            @error('code')
                                 <p class="mt-2 text-sm text-red-600">
                                     {{ $message }}
                                 </p>
@@ -211,32 +169,61 @@
                             @enderror
                         </div>
 
-                        {{-- ================= STOK ================= --}}
+                        {{-- ================= SATUAN ================= --}}
                         <div class="mt-6">
                             <label
-                                for="stock"
+                                for="unit"
                                 class="block text-sm font-semibold text-slate-700"
                             >
-                                Stok
+                                Satuan
                             </label>
 
                             <input
-                                id="stock"
-                                name="stock"
-                                type="number"
-                                min="0"
-                                step="1"
+                                id="unit"
+                                name="unit"
+                                type="text"
                                 required
                                 autocomplete="off"
-                                value="{{ old('stock', 0) }}"
+                                value="{{ old('unit') }}"
+                                placeholder="Contoh : Kg, Pcs, Karung"
                                 class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             >
 
-                            @error('stock')
+                            @error('unit')
                                 <p class="mt-2 text-sm text-red-600">
                                     {{ $message }}
                                 </p>
                             @enderror
+                        </div>
+
+                        {{-- ================= DESKRIPSI ================= --}}
+                        <div class="mt-6">
+                            <label
+                                for="description"
+                                class="block text-sm font-semibold text-slate-700"
+                            >
+                                Deskripsi <span class="font-normal text-slate-400">(opsional)</span>
+                            </label>
+
+                            <textarea
+                                id="description"
+                                name="description"
+                                rows="3"
+                                autocomplete="off"
+                                placeholder="Catatan tambahan mengenai barang ini"
+                                class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            >{{ old('description') }}</textarea>
+
+                            @error('description')
+                                <p class="mt-2 text-sm text-red-600">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+
+                        <div class="mt-6 rounded-xl border border-sky-200 bg-sky-50 p-4 text-sm text-sky-800">
+                            Supplier, harga beli, dan stok awal dapat ditambahkan
+                            setelah barang ini tersimpan, melalui halaman detail barang.
                         </div>
 
                         {{-- ================= BUTTON ================= --}}

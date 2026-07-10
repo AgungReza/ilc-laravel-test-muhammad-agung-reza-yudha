@@ -56,6 +56,20 @@
                         Supplier
                     </x-nav-link>
 
+                    <x-nav-link
+                        :href="route('goods-receipts.index')"
+                        :active="request()->routeIs('goods-receipts.*')"
+                    >
+                        Barang Masuk
+                    </x-nav-link>
+
+                    <x-nav-link
+                        :href="route('goods-issues.index')"
+                        :active="request()->routeIs('goods-issues.*')"
+                    >
+                        Barang Keluar
+                    </x-nav-link>
+
                     @if (auth()->user()->role === 'admin')
                         <x-nav-link
                             :href="route('users.index')"
@@ -222,6 +236,20 @@
                 :active="request()->routeIs('suppliers.*')"
             >
                 Supplier
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link
+                :href="route('goods-receipts.index')"
+                :active="request()->routeIs('goods-receipts.*')"
+            >
+                Barang Masuk
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link
+                :href="route('goods-issues.index')"
+                :active="request()->routeIs('goods-issues.*')"
+            >
+                Barang Keluar
             </x-responsive-nav-link>
 
             @if (auth()->user()->role === 'admin')

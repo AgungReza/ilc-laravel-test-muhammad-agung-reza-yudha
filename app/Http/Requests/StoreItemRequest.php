@@ -16,6 +16,9 @@ class StoreItemRequest extends FormRequest
 
     /**
      * Validation Rules
+     *
+     * Hanya berisi data Master Barang. Supplier, harga beli, dan stok
+     * dikelola terpisah melalui ItemSupplierController.
      */
     public function rules(): array
     {
@@ -26,10 +29,23 @@ class StoreItemRequest extends FormRequest
                 'exists:categories,id',
             ],
 
+            'code' => [
+                'required',
+                'string',
+                'max:50',
+                'unique:items,code',
+            ],
+
             'name' => [
                 'required',
                 'string',
                 'max:150',
+            ],
+
+            'unit' => [
+                'required',
+                'string',
+                'max:20',
             ],
 
             'price' => [
@@ -38,23 +54,9 @@ class StoreItemRequest extends FormRequest
                 'min:0',
             ],
 
-            'stock' => [
-                'required',
-                'integer',
-                'min:0',
-            ],
-
-            'supplier_ids' => [
-                'required',
-                'array',
-                'min:1',
-            ],
-
-            'supplier_ids.*' => [
-                'required',
-                'integer',
-                'exists:suppliers,id',
-                'distinct',
+            'description' => [
+                'nullable',
+                'string',
             ],
         ];
     }
@@ -69,26 +71,24 @@ class StoreItemRequest extends FormRequest
             'category_id.integer' => 'Kategori barang tidak valid.',
             'category_id.exists' => 'Kategori yang dipilih tidak tersedia.',
 
+            'code.required' => 'Kode barang wajib diisi.',
+            'code.string' => 'Kode barang harus berupa teks.',
+            'code.max' => 'Kode barang maksimal 50 karakter.',
+            'code.unique' => 'Kode barang sudah digunakan oleh barang lain.',
+
             'name.required' => 'Nama barang wajib diisi.',
             'name.string' => 'Nama barang harus berupa teks.',
             'name.max' => 'Nama barang maksimal 150 karakter.',
 
-            'price.required' => 'Harga barang wajib diisi.',
-            'price.numeric' => 'Harga barang harus berupa angka.',
-            'price.min' => 'Harga barang tidak boleh kurang dari 0.',
+            'unit.required' => 'Satuan barang wajib diisi.',
+            'unit.string' => 'Satuan barang harus berupa teks.',
+            'unit.max' => 'Satuan barang maksimal 20 karakter.',
 
-            'stock.required' => 'Stok barang wajib diisi.',
-            'stock.integer' => 'Stok barang harus berupa angka bulat.',
-            'stock.min' => 'Stok barang tidak boleh kurang dari 0.',
+            'price.required' => 'Harga jual wajib diisi.',
+            'price.numeric' => 'Harga jual harus berupa angka.',
+            'price.min' => 'Harga jual tidak boleh kurang dari 0.',
 
-            'supplier_ids.required' => 'Supplier wajib dipilih.',
-            'supplier_ids.array' => 'Data supplier tidak valid.',
-            'supplier_ids.min' => 'Pilih minimal satu supplier.',
-
-            'supplier_ids.*.required' => 'Supplier wajib dipilih.',
-            'supplier_ids.*.integer' => 'Supplier tidak valid.',
-            'supplier_ids.*.exists' => 'Supplier yang dipilih tidak ditemukan.',
-            'supplier_ids.*.distinct' => 'Supplier tidak boleh dipilih lebih dari satu kali.',
+            'description.string' => 'Deskripsi harus berupa teks.',
         ];
     }
 }

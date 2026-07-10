@@ -64,7 +64,7 @@
                                     <th class="px-6 py-3 text-left text-xs font-bold uppercase">No</th>
                                     <th class="px-6 py-3 text-left text-xs font-bold uppercase">Barang</th>
                                     <th class="px-6 py-3 text-left text-xs font-bold uppercase">Kategori</th>
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">Harga</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">Harga Beli</th>
                                     <th class="px-6 py-3 text-left text-xs font-bold uppercase">Stok</th>
                                 </tr>
                             </thead>
@@ -83,12 +83,16 @@
                                             {{ $item->category?->name ?? '-' }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            Rp {{ number_format($item->price,0,',','.') }}
+                                            Rp {{ number_format($item->pivot->purchase_price,0,',','.') }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            @if($item->stock > 0)
+                                            @if($item->pivot->stock > $item->pivot->minimum_stock)
                                                 <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
-                                                    {{ $item->stock }}
+                                                    {{ $item->pivot->stock }}
+                                                </span>
+                                            @elseif($item->pivot->stock > 0)
+                                                <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700">
+                                                    {{ $item->pivot->stock }} (Menipis)
                                                 </span>
                                             @else
                                                 <span class="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-700">

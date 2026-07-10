@@ -59,41 +59,26 @@
                         @enderror
                     </div>
 
-                    {{-- ================= SUPPLIER ================= --}}
+                    {{-- ================= KODE BARANG ================= --}}
                     <div class="mt-6">
                         <label
-                            for="supplier_id"
+                            for="code"
                             class="block text-sm font-semibold text-slate-700"
                         >
-                            Supplier
+                            Kode Barang
                         </label>
 
-                        <select
-                            id="supplier_id"
-                            name="supplier_id"
+                        <input
+                            id="code"
+                            name="code"
+                            type="text"
                             required
-                            class="mt-2 block w-full rounded-lg border-slate-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            autocomplete="off"
+                            value="{{ old('code', $item->code) }}"
+                            class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
-                            <option value="">
-                                -- Pilih Supplier --
-                            </option>
 
-                            @foreach ($suppliers as $supplier)
-                                <option
-                                    value="{{ $supplier->id }}"
-                                    @selected(
-                                        old(
-                                            'supplier_id',
-                                            optional($item->suppliers->first())->id
-                                        ) == $supplier->id
-                                    )
-                                >
-                                    {{ $supplier->name }}
-                                </option>
-                            @endforeach
-                        </select>
-
-                        @error('supplier_id')
+                        @error('code')
                             <p class="mt-2 text-sm text-red-600">
                                 {{ $message }}
                             </p>
@@ -160,28 +145,50 @@
                         @enderror
                     </div>
 
-                    {{-- ================= STOK ================= --}}
+                    {{-- ================= SATUAN ================= --}}
                     <div class="mt-6">
                         <label
-                            for="stock"
+                            for="unit"
                             class="block text-sm font-semibold text-slate-700"
                         >
-                            Stok
+                            Satuan
                         </label>
 
                         <input
-                            id="stock"
-                            name="stock"
-                            type="number"
-                            min="0"
-                            step="1"
+                            id="unit"
+                            name="unit"
+                            type="text"
                             required
                             autocomplete="off"
-                            value="{{ old('stock', $item->stock) }}"
+                            value="{{ old('unit', $item->unit) }}"
                             class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
 
-                        @error('stock')
+                        @error('unit')
+                            <p class="mt-2 text-sm text-red-600">
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
+
+                    {{-- ================= DESKRIPSI ================= --}}
+                    <div class="mt-6">
+                        <label
+                            for="description"
+                            class="block text-sm font-semibold text-slate-700"
+                        >
+                            Deskripsi <span class="font-normal text-slate-400">(opsional)</span>
+                        </label>
+
+                        <textarea
+                            id="description"
+                            name="description"
+                            rows="3"
+                            autocomplete="off"
+                            class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        >{{ old('description', $item->description) }}</textarea>
+
+                        @error('description')
                             <p class="mt-2 text-sm text-red-600">
                                 {{ $message }}
                             </p>

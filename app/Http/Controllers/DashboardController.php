@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\ItemSupplier;
 use App\Models\User;
 use Illuminate\View\View;
 
@@ -14,26 +15,30 @@ class DashboardController extends Controller
         // Ringkasan data utama
         $totalCategories = Category::count();
         $totalItems = Item::count();
-        $totalStock = (int) Item::sum('stock');
 
-        // Barang dengan stok 5 atau kurang
-        $lowStockCount = Item::query()
-            ->where('stock', '<=', 5)
+        // Total stok = SUM(item_supplier.stock), sesuai konsep
+        // "stok adalah milik supplier, bukan milik barang".
+        $totalStock = (int) ItemSupplier::sum('stock');
+
+        // Kombinasi barang-supplier yang stoknya sudah mencapai
+        // atau di bawah batas minimum stok yang ditentukan.
+        $lowStockCount = ItemSupplier::query()
+            ->whereColumn('stock', '<=', 'minimum_stock')
             ->count();
 
-        // Lima barang terbaru
+        // Lima barang terbaru, beserta total stok lintas supplier
         $latestItems = Item::query()
             ->with('category')
+            ->withSum('itemSuppliers as total_stock', 'stock')
             ->latest()
             ->take(5)
             ->get();
 
-        // Lima barang dengan stok paling sedikit
-        $lowStockItems = Item::query()
-            ->with('category')
-            ->where('stock', '<=', 5)
+        // Lima kombinasi barang-supplier dengan stok paling menipis
+        $lowStockItems = ItemSupplier::query()
+            ->with(['item.category', 'supplier'])
+            ->whereColumn('stock', '<=', 'minimum_stock')
             ->orderBy('stock')
-            ->orderBy('name')
             ->take(5)
             ->get();
 

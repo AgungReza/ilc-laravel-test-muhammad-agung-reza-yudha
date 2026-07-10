@@ -6,7 +6,6 @@ use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Category;
 use App\Models\Item;
-use App\Models\Supplier;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -18,10 +17,8 @@ class ItemController extends Controller
      */
     public function index(): View
     {
-        $items = Item::with([
-            'category',
-            'suppliers',
-        ])
+        $items = Item::with(['category', 'suppliers'])
+            ->withSum('itemSuppliers as total_stock', 'stock')
             ->latest()
             ->paginate(10);
 
@@ -35,12 +32,7 @@ class ItemController extends Controller
     {
         $categories = Category::orderBy('name')->get();
 
-        $suppliers = Supplier::orderBy('name')->get();
-
-        return view('items.create', compact(
-            'categories',
-            'suppliers'
-        ));
+        return view('items.create', compact('categories'));
     }
 
     /**
@@ -48,42 +40,30 @@ class ItemController extends Controller
      */
     public function show(Item $item): View
     {
-        $item->load([
-            'category',
-            'suppliers',
-        ]);
+        $item->load(['category', 'itemSuppliers.supplier']);
 
-        return view(
-            'items.show',
-            compact('item')
-        );
+        $item->loadSum('itemSuppliers as total_stock', 'stock');
+
+        return view('items.show', compact('item'));
     }
 
     /**
      * Store a newly created resource.
+     *
+     * Hanya menyimpan data Master Barang. Supplier ditambahkan
+     * setelahnya melalui halaman "Kelola Supplier" pada detail barang.
      */
     public function store(StoreItemRequest $request): RedirectResponse
     {
         DB::transaction(function () use ($request) {
-
-            $data = $request->validated();
-
-            $supplierId = $data['supplier_id'];
-
-            unset($data['supplier_id']);
-
-            $item = Item::create($data);
-
-            // Tetap menggunakan pivot,
-            // tetapi hanya menyimpan satu supplier.
-            $item->suppliers()->sync([$supplierId]);
+            Item::create($request->validated());
         });
 
         return redirect()
             ->route('items.index')
             ->with(
                 'success',
-                'Barang berhasil ditambahkan.'
+                'Barang berhasil ditambahkan. Silakan tambahkan supplier pada halaman detail barang.'
             );
     }
 
@@ -92,17 +72,9 @@ class ItemController extends Controller
      */
     public function edit(Item $item): View
     {
-        $item->load('suppliers');
-
         $categories = Category::orderBy('name')->get();
 
-        $suppliers = Supplier::orderBy('name')->get();
-
-        return view('items.edit', compact(
-            'item',
-            'categories',
-            'suppliers'
-        ));
+        return view('items.edit', compact('item', 'categories'));
     }
 
     /**
@@ -114,17 +86,7 @@ class ItemController extends Controller
     ): RedirectResponse {
 
         DB::transaction(function () use ($request, $item) {
-
-            $data = $request->validated();
-
-            $supplierId = $data['supplier_id'];
-
-            unset($data['supplier_id']);
-
-            $item->update($data);
-
-            // Hanya satu supplier
-            $item->suppliers()->sync([$supplierId]);
+            $item->update($request->validated());
         });
 
         return redirect()
@@ -137,13 +99,13 @@ class ItemController extends Controller
 
     /**
      * Remove the specified resource.
+     *
+     * Baris pivot item_supplier ikut terhapus otomatis lewat
+     * cascadeOnDelete pada foreign key item_id.
      */
     public function destroy(Item $item): RedirectResponse
     {
         DB::transaction(function () use ($item) {
-
-            $item->suppliers()->detach();
-
             $item->delete();
         });
 

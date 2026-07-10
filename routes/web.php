@@ -1,15 +1,16 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Halaman awal
+| Halaman Awal
 |--------------------------------------------------------------------------
 */
 
@@ -19,24 +20,51 @@ Route::get('/', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Route untuk Admin dan User
+| Route untuk User yang Sudah Login
 |--------------------------------------------------------------------------
-|
-| Semua pengguna yang sudah login dapat mengakses:
-| - Dashboard
-| - Kategori
-| - Barang
-|
 */
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Dashboard
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Category
+    |--------------------------------------------------------------------------
+    */
 
     Route::resource('categories', CategoryController::class)
         ->except(['show']);
 
-    Route::resource('items', ItemController::class)
-        ->except(['show']);
+    /*
+    |--------------------------------------------------------------------------
+    | Item
+    |--------------------------------------------------------------------------
+    */
+
+    Route::resource('items', ItemController::class);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Supplier
+    |--------------------------------------------------------------------------
+    */
+
+    Route::resource('suppliers', SupplierController::class);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Profile
+    |--------------------------------------------------------------------------
+    */
 
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
@@ -50,11 +78,12 @@ Route::middleware('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Route khusus Admin
+| Route Khusus Admin
 |--------------------------------------------------------------------------
 */
 
 Route::middleware(['auth', 'admin'])->group(function () {
+
     Route::get('/admin-test', function () {
         return 'Berhasil masuk sebagai admin.';
     })->name('admin.test');
@@ -63,4 +92,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
         ->except(['show']);
 });
 
-require __DIR__ . '/auth.php';
+/*
+|--------------------------------------------------------------------------
+| Authentication
+|--------------------------------------------------------------------------
+*/
+
+require __DIR__.'/auth.php';

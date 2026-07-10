@@ -13,6 +13,7 @@
 
     <div class="py-10">
         <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+
             <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
 
                 <form
@@ -22,7 +23,7 @@
                     @csrf
                     @method('PUT')
 
-                    {{-- Kategori --}}
+                    {{-- ================= KATEGORI ================= --}}
                     <div>
                         <label
                             for="category_id"
@@ -34,17 +35,17 @@
                         <select
                             id="category_id"
                             name="category_id"
+                            required
                             class="mt-2 block w-full rounded-lg border-slate-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
-                            <option value="">Pilih kategori</option>
+                            <option value="">
+                                -- Pilih Kategori --
+                            </option>
 
                             @foreach ($categories as $category)
                                 <option
                                     value="{{ $category->id }}"
-                                    @selected(
-                                        old('category_id', $item->category_id)
-                                        == $category->id
-                                    )
+                                    @selected(old('category_id', $item->category_id) == $category->id)
                                 >
                                     {{ $category->name }}
                                 </option>
@@ -58,8 +59,49 @@
                         @enderror
                     </div>
 
-                    {{-- Nama Barang --}}
-                    <div class="mt-5">
+                    {{-- ================= SUPPLIER ================= --}}
+                    <div class="mt-6">
+                        <label
+                            for="supplier_id"
+                            class="block text-sm font-semibold text-slate-700"
+                        >
+                            Supplier
+                        </label>
+
+                        <select
+                            id="supplier_id"
+                            name="supplier_id"
+                            required
+                            class="mt-2 block w-full rounded-lg border-slate-300 bg-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        >
+                            <option value="">
+                                -- Pilih Supplier --
+                            </option>
+
+                            @foreach ($suppliers as $supplier)
+                                <option
+                                    value="{{ $supplier->id }}"
+                                    @selected(
+                                        old(
+                                            'supplier_id',
+                                            optional($item->suppliers->first())->id
+                                        ) == $supplier->id
+                                    )
+                                >
+                                    {{ $supplier->name }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        @error('supplier_id')
+                            <p class="mt-2 text-sm text-red-600">
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
+
+                    {{-- ================= NAMA BARANG ================= --}}
+                    <div class="mt-6">
                         <label
                             for="name"
                             class="block text-sm font-semibold text-slate-700"
@@ -71,6 +113,8 @@
                             id="name"
                             name="name"
                             type="text"
+                            required
+                            autocomplete="off"
                             value="{{ old('name', $item->name) }}"
                             class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
@@ -82,8 +126,8 @@
                         @enderror
                     </div>
 
-                    {{-- Harga --}}
-                    <div class="mt-5">
+                    {{-- ================= HARGA ================= --}}
+                    <div class="mt-6">
                         <label
                             for="price"
                             class="block text-sm font-semibold text-slate-700"
@@ -101,8 +145,10 @@
                                 name="price"
                                 type="number"
                                 min="0"
-                                step="1"
-                                value="{{ old('price', (int) $item->price) }}"
+                                step="0.01"
+                                required
+                                autocomplete="off"
+                                value="{{ old('price', $item->price) }}"
                                 class="block w-full rounded-r-lg border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
                             >
                         </div>
@@ -114,8 +160,8 @@
                         @enderror
                     </div>
 
-                    {{-- Stok --}}
-                    <div class="mt-5">
+                    {{-- ================= STOK ================= --}}
+                    <div class="mt-6">
                         <label
                             for="stock"
                             class="block text-sm font-semibold text-slate-700"
@@ -129,6 +175,8 @@
                             type="number"
                             min="0"
                             step="1"
+                            required
+                            autocomplete="off"
                             value="{{ old('stock', $item->stock) }}"
                             class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
@@ -140,8 +188,9 @@
                         @enderror
                     </div>
 
-                    {{-- Tombol --}}
+                    {{-- ================= BUTTON ================= --}}
                     <div class="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+
                         <a
                             href="{{ route('items.index') }}"
                             class="inline-flex items-center justify-center rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
@@ -155,7 +204,9 @@
                         >
                             Simpan Perubahan
                         </button>
+
                     </div>
+
                 </form>
 
             </div>

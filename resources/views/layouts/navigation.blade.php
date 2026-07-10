@@ -49,6 +49,13 @@
                         Barang
                     </x-nav-link>
 
+                    <x-nav-link
+                        :href="route('suppliers.index')"
+                        :active="request()->routeIs('suppliers.*')"
+                    >
+                        Supplier
+                    </x-nav-link>
+
                     @if (auth()->user()->role === 'admin')
                         <x-nav-link
                             :href="route('users.index')"
@@ -208,6 +215,13 @@
                 :active="request()->routeIs('items.*')"
             >
                 Barang
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link
+                :href="route('suppliers.index')"
+                :active="request()->routeIs('suppliers.*')"
+            >
+                Supplier
             </x-responsive-nav-link>
 
             @if (auth()->user()->role === 'admin')

@@ -6,18 +6,22 @@ use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Supplier;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ItemController extends Controller
 {
     /**
-     * Menampilkan daftar barang.
+     * Display a listing of the resource.
      */
     public function index(): View
     {
-        $items = Item::query()
-            ->with('category')
+        $items = Item::with([
+            'category',
+            'suppliers',
+        ])
             ->latest()
             ->paginate(10);
 
@@ -25,64 +29,129 @@ class ItemController extends Controller
     }
 
     /**
-     * Menampilkan form tambah barang.
+     * Show the form for creating a new resource.
      */
     public function create(): View
     {
-        $categories = Category::query()
-            ->orderBy('name')
-            ->get();
+        $categories = Category::orderBy('name')->get();
 
-        return view('items.create', compact('categories'));
+        $suppliers = Supplier::orderBy('name')->get();
+
+        return view('items.create', compact(
+            'categories',
+            'suppliers'
+        ));
     }
 
     /**
-     * Menyimpan barang baru.
+     * Display the specified resource.
+     */
+    public function show(Item $item): View
+    {
+        $item->load([
+            'category',
+            'suppliers',
+        ]);
+
+        return view(
+            'items.show',
+            compact('item')
+        );
+    }
+
+    /**
+     * Store a newly created resource.
      */
     public function store(StoreItemRequest $request): RedirectResponse
     {
-        Item::create($request->validated());
+        DB::transaction(function () use ($request) {
+
+            $data = $request->validated();
+
+            $supplierId = $data['supplier_id'];
+
+            unset($data['supplier_id']);
+
+            $item = Item::create($data);
+
+            // Tetap menggunakan pivot,
+            // tetapi hanya menyimpan satu supplier.
+            $item->suppliers()->sync([$supplierId]);
+        });
 
         return redirect()
             ->route('items.index')
-            ->with('success', 'Barang berhasil ditambahkan.');
+            ->with(
+                'success',
+                'Barang berhasil ditambahkan.'
+            );
     }
 
     /**
-     * Menampilkan form edit barang.
+     * Show the form for editing the specified resource.
      */
     public function edit(Item $item): View
     {
-        $categories = Category::query()
-            ->orderBy('name')
-            ->get();
+        $item->load('suppliers');
 
-        return view('items.edit', compact('item', 'categories'));
+        $categories = Category::orderBy('name')->get();
+
+        $suppliers = Supplier::orderBy('name')->get();
+
+        return view('items.edit', compact(
+            'item',
+            'categories',
+            'suppliers'
+        ));
     }
 
     /**
-     * Memperbarui data barang.
+     * Update the specified resource.
      */
     public function update(
         UpdateItemRequest $request,
         Item $item
     ): RedirectResponse {
-        $item->update($request->validated());
+
+        DB::transaction(function () use ($request, $item) {
+
+            $data = $request->validated();
+
+            $supplierId = $data['supplier_id'];
+
+            unset($data['supplier_id']);
+
+            $item->update($data);
+
+            // Hanya satu supplier
+            $item->suppliers()->sync([$supplierId]);
+        });
 
         return redirect()
             ->route('items.index')
-            ->with('success', 'Barang berhasil diperbarui.');
+            ->with(
+                'success',
+                'Barang berhasil diperbarui.'
+            );
     }
 
     /**
-     * Menghapus barang.
+     * Remove the specified resource.
      */
     public function destroy(Item $item): RedirectResponse
     {
-        $item->delete();
+        DB::transaction(function () use ($item) {
+
+            $item->suppliers()->detach();
+
+            $item->delete();
+        });
 
         return redirect()
             ->route('items.index')
-            ->with('success', 'Barang berhasil dihapus.');
+            ->with(
+                'success',
+                'Barang berhasil dihapus.'
+            );
     }
 }

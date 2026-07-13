@@ -34,7 +34,8 @@ class StoreSupplierRequest extends FormRequest
             'phone' => [
                 'required',
                 'string',
-                'max:20',
+                'min:10',
+                'max:15',
             ],
         ];
     }

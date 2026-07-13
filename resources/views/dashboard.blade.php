@@ -2,11 +2,11 @@
     <x-slot name="header">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <h2 class="text-xl font-bold text-slate-800">
+                <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100">
                     Dashboard
                 </h2>
 
-                <p class="mt-1 text-sm text-slate-500">
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                     Ringkasan informasi sistem manajemen barang.
                 </p>
             </div>
@@ -14,8 +14,8 @@
             <span
                 class="inline-flex w-fit rounded-full px-3 py-1.5 text-xs font-semibold
                     {{ auth()->user()->role === 'admin'
-                        ? 'bg-purple-100 text-purple-700'
-                        : 'bg-indigo-100 text-indigo-700' }}"
+                        ? 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300'
+                        : 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300' }}"
             >
                 {{ auth()->user()->role === 'admin' ? 'Administrator' : 'User' }}
             </span>
@@ -56,7 +56,7 @@
 
                         <a
                             href="{{ route('categories.create') }}"
-                            class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/15"
+                            class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white dark:bg-gray-800/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/15"
                         >
                             + Tambah Kategori
                         </a>
@@ -64,7 +64,7 @@
                         @if (auth()->user()->role === 'admin')
                             <a
                                 href="{{ route('users.create') }}"
-                                class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/15"
+                                class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white dark:bg-gray-800/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/15"
                             >
                                 + Tambah User
                             </a>
@@ -76,11 +76,11 @@
             {{-- Kartu statistik --}}
             <section>
                 <div class="mb-4">
-                    <h3 class="text-lg font-bold text-slate-800">
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100">
                         Ringkasan Data
                     </h3>
 
-                    <p class="mt-1 text-sm text-slate-500">
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                         Informasi terbaru berdasarkan data di dalam sistem.
                     </p>
                 </div>
@@ -90,20 +90,20 @@
                     {{-- Total kategori --}}
                     <a
                         href="{{ route('categories.index') }}"
-                        class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-indigo-200 hover:shadow-md"
+                        class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-800 p-5 shadow-sm transition hover:-translate-y-1 hover:border-indigo-200 hover:shadow-md"
                     >
                         <div class="flex items-start justify-between">
                             <div>
-                                <p class="text-sm font-medium text-slate-500">
+                                <p class="text-sm font-medium text-slate-500 dark:text-slate-400">
                                     Total Kategori
                                 </p>
 
-                                <p class="mt-3 text-3xl font-black text-slate-800">
+                                <p class="mt-3 text-3xl font-black text-slate-800 dark:text-slate-100">
                                     {{ number_format($totalCategories) }}
                                 </p>
                             </div>
 
-                            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600">
                                 <svg
                                     class="h-6 w-6"
                                     fill="none"
@@ -128,20 +128,20 @@
                     {{-- Total barang --}}
                     <a
                         href="{{ route('items.index') }}"
-                        class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-md"
+                        class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-800 p-5 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-md"
                     >
                         <div class="flex items-start justify-between">
                             <div>
-                                <p class="text-sm font-medium text-slate-500">
+                                <p class="text-sm font-medium text-slate-500 dark:text-slate-400">
                                     Total Barang
                                 </p>
 
-                                <p class="mt-3 text-3xl font-black text-slate-800">
+                                <p class="mt-3 text-3xl font-black text-slate-800 dark:text-slate-100">
                                     {{ number_format($totalItems) }}
                                 </p>
                             </div>
 
-                            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-600">
                                 <svg
                                     class="h-6 w-6"
                                     fill="none"
@@ -164,19 +164,19 @@
                     </a>
 
                     {{-- Total stok --}}
-                    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-800 p-5 shadow-sm">
                         <div class="flex items-start justify-between">
                             <div>
-                                <p class="text-sm font-medium text-slate-500">
+                                <p class="text-sm font-medium text-slate-500 dark:text-slate-400">
                                     Total Stok
                                 </p>
 
-                                <p class="mt-3 text-3xl font-black text-slate-800">
+                                <p class="mt-3 text-3xl font-black text-slate-800 dark:text-slate-100">
                                     {{ number_format($totalStock) }}
                                 </p>
                             </div>
 
-                            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600">
                                 <svg
                                     class="h-6 w-6"
                                     fill="none"
@@ -193,25 +193,25 @@
                             </div>
                         </div>
 
-                        <p class="mt-4 text-xs font-medium text-slate-400">
+                        <p class="mt-4 text-xs font-medium text-slate-400 dark:text-slate-500">
                             Jumlah seluruh stok barang
                         </p>
                     </div>
 
                     {{-- Stok menipis --}}
-                    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-800 p-5 shadow-sm">
                         <div class="flex items-start justify-between">
                             <div>
-                                <p class="text-sm font-medium text-slate-500">
+                                <p class="text-sm font-medium text-slate-500 dark:text-slate-400">
                                     Stok Menipis
                                 </p>
 
-                                <p class="mt-3 text-3xl font-black text-slate-800">
+                                <p class="mt-3 text-3xl font-black text-slate-800 dark:text-slate-100">
                                     {{ number_format($lowStockCount) }}
                                 </p>
                             </div>
 
-                            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-100 text-amber-600">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-600">
                                 <svg
                                     class="h-6 w-6"
                                     fill="none"
@@ -237,20 +237,20 @@
                     @if (auth()->user()->role === 'admin')
                         <a
                             href="{{ route('users.index') }}"
-                            class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-purple-200 hover:shadow-md"
+                            class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-800 p-5 shadow-sm transition hover:-translate-y-1 hover:border-purple-200 hover:shadow-md"
                         >
                             <div class="flex items-start justify-between">
                                 <div>
-                                    <p class="text-sm font-medium text-slate-500">
+                                    <p class="text-sm font-medium text-slate-500 dark:text-slate-400">
                                         Total User
                                     </p>
 
-                                    <p class="mt-3 text-3xl font-black text-slate-800">
+                                    <p class="mt-3 text-3xl font-black text-slate-800 dark:text-slate-100">
                                         {{ number_format($totalUsers ?? 0) }}
                                     </p>
                                 </div>
 
-                                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-100 text-purple-600">
+                                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-100 dark:bg-purple-900/40 text-purple-600">
                                     <svg
                                         class="h-6 w-6"
                                         fill="none"
@@ -280,14 +280,14 @@
             <section class="grid grid-cols-1 gap-6 xl:grid-cols-3">
 
                 {{-- Barang terbaru --}}
-                <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm xl:col-span-2">
-                    <div class="flex items-center justify-between border-b border-slate-200 px-6 py-5">
+                <div class="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-800 shadow-sm xl:col-span-2">
+                    <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 px-6 py-5">
                         <div>
-                            <h3 class="font-bold text-slate-800">
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100">
                                 Barang Terbaru
                             </h3>
 
-                            <p class="mt-1 text-sm text-slate-500">
+                            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                                 Lima barang yang terakhir ditambahkan.
                             </p>
                         </div>
@@ -301,48 +301,48 @@
                     </div>
 
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-slate-200">
-                            <thead class="bg-slate-50">
+                        <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
+                            <thead class="bg-slate-50 dark:bg-gray-900/40">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
+                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                         Barang
                                     </th>
 
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
+                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                         Kategori
                                     </th>
 
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
+                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                         Harga
                                     </th>
 
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
+                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                         Stok
                                     </th>
                                 </tr>
                             </thead>
 
-                            <tbody class="divide-y divide-slate-100">
+                            <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
                                 @forelse ($latestItems as $item)
                                     <tr class="transition hover:bg-slate-50">
                                         <td class="px-6 py-4">
-                                            <p class="font-semibold text-slate-800">
+                                            <p class="font-semibold text-slate-800 dark:text-slate-100">
                                                 {{ $item->name }}
                                             </p>
 
-                                            <p class="mt-1 text-xs text-slate-400">
+                                            <p class="mt-1 text-xs text-slate-400 dark:text-slate-500">
                                                 Ditambahkan
                                                 {{ $item->created_at->diffForHumans() }}
                                             </p>
                                         </td>
 
                                         <td class="whitespace-nowrap px-6 py-4">
-                                            <span class="rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">
+                                            <span class="rounded-full bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300">
                                                 {{ $item->category?->name ?? '-' }}
                                             </span>
                                         </td>
 
-                                        <td class="whitespace-nowrap px-6 py-4 text-sm font-semibold text-slate-700">
+                                        <td class="whitespace-nowrap px-6 py-4 text-sm font-semibold text-slate-700 dark:text-slate-200">
                                             Rp {{ number_format((float) $item->price, 0, ',', '.') }}
                                         </td>
 
@@ -350,10 +350,10 @@
                                             <span
                                                 class="rounded-full px-3 py-1 text-xs font-semibold
                                                     {{ ($item->total_stock ?? 0) <= 0
-                                                        ? 'bg-red-100 text-red-700'
+                                                        ? 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300'
                                                         : ($item->total_stock <= 5
-                                                            ? 'bg-amber-100 text-amber-700'
-                                                            : 'bg-emerald-100 text-emerald-700') }}"
+                                                            ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300'
+                                                            : 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300') }}"
                                             >
                                                 {{ $item->total_stock ?? 0 }}
                                             </span>
@@ -365,7 +365,7 @@
                                             colspan="4"
                                             class="px-6 py-12 text-center"
                                         >
-                                            <p class="font-semibold text-slate-600">
+                                            <p class="font-semibold text-slate-600 dark:text-slate-300">
                                                 Belum ada barang
                                             </p>
 
@@ -384,26 +384,26 @@
                 </div>
 
                 {{-- Peringatan stok --}}
-                <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                    <div class="border-b border-slate-200 px-6 py-5">
-                        <h3 class="font-bold text-slate-800">
+                <div class="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-800 shadow-sm">
+                    <div class="border-b border-slate-200 dark:border-slate-700 px-6 py-5">
+                        <h3 class="font-bold text-slate-800 dark:text-slate-100">
                             Peringatan Stok
                         </h3>
 
-                        <p class="mt-1 text-sm text-slate-500">
+                        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                             Barang yang perlu segera ditambah.
                         </p>
                     </div>
 
-                    <div class="divide-y divide-slate-100">
+                    <div class="divide-y divide-slate-100 dark:divide-slate-700">
                         @forelse ($lowStockItems as $itemSupplier)
                             <div class="flex items-center justify-between gap-4 px-6 py-4">
                                 <div class="min-w-0">
-                                    <p class="truncate font-semibold text-slate-800">
+                                    <p class="truncate font-semibold text-slate-800 dark:text-slate-100">
                                         {{ $itemSupplier->item->name }}
                                     </p>
 
-                                    <p class="mt-1 truncate text-xs text-slate-500">
+                                    <p class="mt-1 truncate text-xs text-slate-500 dark:text-slate-400">
                                         {{ $itemSupplier->item->category?->name ?? '-' }}
                                         &middot; Supplier: {{ $itemSupplier->supplier->name }}
                                     </p>
@@ -411,11 +411,11 @@
 
                                 <div class="shrink-0 text-right">
                                     @if ($itemSupplier->stock <= 0)
-                                        <span class="rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-700">
+                                        <span class="rounded-full bg-red-100 dark:bg-red-900/40 px-3 py-1 text-xs font-bold text-red-700 dark:text-red-300">
                                             Habis
                                         </span>
                                     @else
-                                        <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-700">
+                                        <span class="rounded-full bg-amber-100 dark:bg-amber-900/40 px-3 py-1 text-xs font-bold text-amber-700 dark:text-amber-300">
                                             Sisa {{ $itemSupplier->stock }}
                                         </span>
                                     @endif
@@ -423,7 +423,7 @@
                             </div>
                         @empty
                             <div class="px-6 py-12 text-center">
-                                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600">
                                     <svg
                                         class="h-6 w-6"
                                         fill="none"
@@ -439,11 +439,11 @@
                                     </svg>
                                 </div>
 
-                                <p class="mt-4 font-semibold text-slate-700">
+                                <p class="mt-4 font-semibold text-slate-700 dark:text-slate-200">
                                     Stok aman
                                 </p>
 
-                                <p class="mt-1 text-sm text-slate-400">
+                                <p class="mt-1 text-sm text-slate-400 dark:text-slate-500">
                                     Tidak ada barang dengan stok menipis.
                                 </p>
                             </div>
@@ -451,10 +451,10 @@
                     </div>
 
                     @if ($lowStockItems->isNotEmpty())
-                        <div class="border-t border-slate-200 px-6 py-4">
+                        <div class="border-t border-slate-200 dark:border-slate-700 px-6 py-4">
                             <a
                                 href="{{ route('items.index') }}"
-                                class="block rounded-lg bg-slate-100 px-4 py-2.5 text-center text-sm font-semibold text-slate-700 transition hover:bg-slate-200"
+                                class="block rounded-lg bg-slate-100 dark:bg-slate-700 px-4 py-2.5 text-center text-sm font-semibold text-slate-700 dark:text-slate-200 transition hover:bg-slate-200"
                             >
                                 Kelola Stok Barang
                             </a>

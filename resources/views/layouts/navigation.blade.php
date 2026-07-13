@@ -1,6 +1,6 @@
 <nav
     x-data="{ open: false }"
-    class="border-b border-slate-200 bg-white shadow-sm"
+    class="border-b border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900"
 >
     {{-- Navigasi Desktop --}}
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -19,7 +19,7 @@
                             class="block h-9 w-auto fill-current text-indigo-600"
                         />
 
-                        <span class="hidden text-sm font-bold text-slate-800 lg:block">
+                        <span class="hidden text-sm font-bold text-slate-800 dark:text-slate-100 lg:block">
                             Manajemen Barang
                         </span>
                     </a>
@@ -84,13 +84,44 @@
 
             {{-- Bagian kanan desktop --}}
             <div class="hidden sm:flex sm:items-center sm:gap-3">
+                {{-- Toggle Dark Mode --}}
+                <button
+                    id="theme-toggle"
+                    class="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-yellow-400"
+                >
+                    {{-- Icon Matahari --}}
+                    <svg
+                        id="theme-light-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5 hidden dark:block"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364 6.364-1.414-1.414M7.05 7.05 5.636 5.636m12.728 0L16.95 7.05M7.05 16.95l-1.414 1.414M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+                    </svg>
+
+                    {{-- Icon Bulan --}}
+                    <svg
+                        id="theme-dark-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5 block dark:hidden"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 12.79A9 9 0 1111.21 3c0 .34.02.67.05 1A7 7 0 0020 12.74c.34.03.67.05 1 .05z"/>
+                    </svg>
+                </button>
 
                 {{-- Role --}}
                 <span
                     class="inline-flex rounded-full px-3 py-1 text-xs font-semibold
                         {{ auth()->user()->role === 'admin'
-                            ? 'bg-purple-100 text-purple-700'
-                            : 'bg-slate-100 text-slate-700' }}"
+                            ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300'
+                            : 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-200' }}"
                 >
                     {{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}
                 </span>
@@ -100,7 +131,7 @@
                     <x-slot name="trigger">
                         <button
                             type="button"
-                            class="inline-flex items-center rounded-lg border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-slate-600 transition duration-150 ease-in-out hover:bg-slate-50 hover:text-slate-800 focus:outline-none"
+                            class="inline-flex items-center rounded-lg border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-slate-600 transition duration-150 ease-in-out hover:bg-slate-50 hover:text-slate-800 focus:outline-none dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
                         >
                             <div class="max-w-40 truncate">
                                 {{ auth()->user()->name }}
@@ -123,12 +154,12 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <div class="border-b border-slate-100 px-4 py-3">
-                            <p class="truncate text-sm font-semibold text-slate-800">
+                        <div class="border-b border-slate-100 px-4 py-3 dark:border-slate-700">
+                            <p class="truncate text-sm font-semibold text-slate-800 dark:text-slate-100">
                                 {{ auth()->user()->name }}
                             </p>
 
-                            <p class="mt-1 truncate text-xs text-slate-500">
+                            <p class="mt-1 truncate text-xs text-slate-500 dark:text-slate-400">
                                 {{ auth()->user()->email }}
                             </p>
                         </div>
@@ -162,7 +193,7 @@
                 <button
                     type="button"
                     @click="open = ! open"
-                    class="inline-flex items-center justify-center rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600 focus:bg-slate-100 focus:text-slate-600 focus:outline-none"
+                    class="inline-flex items-center justify-center rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600 focus:bg-slate-100 focus:text-slate-600 focus:outline-none dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300 dark:focus:bg-slate-800 dark:focus:text-slate-300"
                     aria-label="Buka menu navigasi"
                 >
                     {{-- Ikon menu --}}
@@ -205,7 +236,7 @@
     {{-- Navigasi Mobile --}}
     <div
         :class="{ 'block': open, 'hidden': ! open }"
-        class="hidden border-t border-slate-100 sm:hidden"
+        class="hidden border-t border-slate-100 sm:hidden dark:border-slate-700 dark:bg-slate-900"
     >
         {{-- Menu --}}
         <div class="space-y-1 pb-3 pt-2">
@@ -264,15 +295,15 @@
         </div>
 
         {{-- Informasi pengguna --}}
-        <div class="border-t border-slate-200 pb-1 pt-4">
+        <div class="border-t border-slate-200 pb-1 pt-4 dark:border-slate-700">
             <div class="px-4">
                 <div class="flex items-center justify-between gap-3">
                     <div class="min-w-0">
-                        <div class="truncate text-base font-semibold text-slate-800">
+                        <div class="truncate text-base font-semibold text-slate-800 dark:text-slate-100">
                             {{ auth()->user()->name }}
                         </div>
 
-                        <div class="truncate text-sm text-slate-500">
+                        <div class="truncate text-sm text-slate-500 dark:text-slate-400">
                             {{ auth()->user()->email }}
                         </div>
                     </div>
@@ -280,8 +311,8 @@
                     <span
                         class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold
                             {{ auth()->user()->role === 'admin'
-                                ? 'bg-purple-100 text-purple-700'
-                                : 'bg-slate-100 text-slate-700' }}"
+                                ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300'
+                                : 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-200' }}"
                     >
                         {{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}
                     </span>

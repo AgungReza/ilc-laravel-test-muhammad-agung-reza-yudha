@@ -6,8 +6,8 @@
     <x-slot name="header">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <h2 class="text-xl font-bold text-slate-800">Manajemen Supplier</h2>
-                <p class="mt-1 text-sm text-slate-500">
+                <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100">Manajemen Supplier</h2>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                     Kelola seluruh data supplier yang memasok barang.
                 </p>
             </div>
@@ -23,25 +23,25 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
             @if(session('success'))
-                <div class="mb-5 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+                <div class="mb-5 rounded-lg border border-emerald-200 bg-emerald-50 dark:bg-emerald-900/30 px-4 py-3 text-sm font-medium text-emerald-700 dark:text-emerald-300">
                     {{ session('success') }}
                 </div>
             @endif
 
             <div class="mb-6 grid gap-4 md:grid-cols-3">
-                <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                    <p class="text-sm text-slate-500">Total Supplier</p>
+                <div class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-800 p-5 shadow-sm">
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Total Supplier</p>
                     <p class="mt-2 text-3xl font-bold text-indigo-600">{{ $suppliers->total() }}</p>
                 </div>
 
-                <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:col-span-2">
+                <div class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-800 p-5 shadow-sm md:col-span-2">
                     <form method="GET" action="{{ route('suppliers.index') }}" class="flex gap-3">
                         <input
                             type="text"
                             name="search"
                             value="{{ request('search') }}"
                             placeholder="Cari nama, alamat, atau telepon..."
-                            class="w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            class="w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
 
                         <button class="rounded-lg bg-indigo-600 px-5 py-2 text-white hover:bg-indigo-700">
                             Cari
@@ -50,10 +50,10 @@
                 </div>
             </div>
 
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-800 shadow-sm">
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-slate-200">
-                        <thead class="bg-slate-50">
+                    <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
+                        <thead class="bg-slate-50 dark:bg-gray-900/40">
                         <tr>
                             <th class="px-6 py-4 text-left text-xs font-bold uppercase">No</th>
                             <th class="px-6 py-4 text-left text-xs font-bold uppercase">Supplier</th>
@@ -63,14 +63,14 @@
                         </tr>
                         </thead>
 
-                        <tbody class="divide-y divide-slate-100">
+                        <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
                         @forelse($suppliers as $supplier)
                             <tr class="hover:bg-slate-50">
                                 <td class="px-6 py-4">{{ $suppliers->firstItem() + $loop->index }}</td>
 
                                 <td class="px-6 py-4">
                                     <div class="font-semibold">{{ $supplier->name }}</div>
-                                    <div class="text-xs text-slate-500">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400">
                                         {{ Str::limit($supplier->address,40) }}
                                     </div>
                                 </td>
@@ -78,7 +78,7 @@
                                 <td class="px-6 py-4">{{ $supplier->phone }}</td>
 
                                 <td class="px-6 py-4">
-                                    <span class="rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-700">
+                                    <span class="rounded-full bg-indigo-100 dark:bg-indigo-900/40 px-3 py-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300">
                                         📦 {{ $supplier->items_count }} Barang
                                     </span>
                                 </td>
@@ -91,7 +91,7 @@
                                         </a>
 
                                         <a href="{{ route('suppliers.edit',$supplier) }}"
-                                           class="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-700 hover:bg-amber-100">
+                                           class="rounded-lg border border-amber-200 bg-amber-50 dark:bg-amber-900/30 px-3 py-2 text-xs font-semibold text-amber-700 dark:text-amber-300 hover:bg-amber-100">
                                             Edit
                                         </a>
 
@@ -101,7 +101,7 @@
                                             @csrf
                                             @method('DELETE')
 
-                                            <button class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-700 hover:bg-red-100">
+                                            <button class="rounded-lg border border-red-200 bg-red-50 dark:bg-red-900/30 px-3 py-2 text-xs font-semibold text-red-700 dark:text-red-300 hover:bg-red-100">
                                                 Hapus
                                             </button>
                                         </form>
@@ -111,11 +111,11 @@
                         @empty
                             <tr>
                                 <td colspan="5" class="px-6 py-16 text-center">
-                                    <h3 class="text-lg font-semibold text-slate-700">
+                                    <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-200">
                                         Belum Ada Supplier
                                     </h3>
 
-                                    <p class="mt-2 text-sm text-slate-500">
+                                    <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
                                         Tambahkan supplier pertama untuk mulai mengelola data supplier.
                                     </p>
 
@@ -131,7 +131,7 @@
                 </div>
 
                 @if($suppliers->hasPages())
-                    <div class="border-t border-slate-200 px-6 py-4">
+                    <div class="border-t border-slate-200 dark:border-slate-700 px-6 py-4">
                         {{ $suppliers->links() }}
                     </div>
                 @endif

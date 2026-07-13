@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
         <div>
-            <h2 class="text-xl font-bold text-slate-800">
+            <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100">
                 Catat Barang Masuk
             </h2>
 
-            <p class="mt-1 text-sm text-slate-500">
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Nomor transaksi akan dibuat otomatis oleh sistem.
             </p>
         </div>
@@ -16,13 +16,13 @@
 
             @if($items->isEmpty() || $suppliers->isEmpty())
 
-                <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-                    <div class="rounded-xl border border-amber-200 bg-amber-50 p-5">
-                        <h3 class="font-semibold text-amber-800">
+                <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-800 p-6 shadow-sm sm:p-8">
+                    <div class="rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-900/30 p-5">
+                        <h3 class="font-semibold text-amber-800 dark:text-amber-300">
                             Data Belum Lengkap
                         </h3>
 
-                        <p class="mt-2 text-sm text-amber-700">
+                        <p class="mt-2 text-sm text-amber-700 dark:text-amber-300">
                             Pastikan sudah ada minimal 1 Barang dan 1 Supplier
                             sebelum mencatat Barang Masuk.
                         </p>
@@ -50,13 +50,13 @@
                     <form action="{{ route('goods-receipts.store') }}" method="POST">
                         @csrf
 
-                        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                        <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-800 p-6 shadow-sm sm:p-8">
 
                             {{-- ================= TANGGAL & CATATAN ================= --}}
                             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
 
                                 <div>
-                                    <label for="receipt_date" class="block text-sm font-semibold text-slate-700">
+                                    <label for="receipt_date" class="block text-sm font-semibold text-slate-700 dark:text-slate-200">
                                         Tanggal Transaksi
                                     </label>
 
@@ -66,7 +66,7 @@
                                         type="date"
                                         required
                                         value="{{ old('receipt_date', now()->toDateString()) }}"
-                                        class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     >
 
                                     @error('receipt_date')
@@ -75,8 +75,8 @@
                                 </div>
 
                                 <div>
-                                    <label for="notes" class="block text-sm font-semibold text-slate-700">
-                                        Catatan <span class="font-normal text-slate-400">(opsional)</span>
+                                    <label for="notes" class="block text-sm font-semibold text-slate-700 dark:text-slate-200">
+                                        Catatan <span class="font-normal text-slate-400 dark:text-slate-500">(opsional)</span>
                                     </label>
 
                                     <input
@@ -85,7 +85,7 @@
                                         type="text"
                                         value="{{ old('notes') }}"
                                         placeholder="Contoh : No. Surat Jalan"
-                                        class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                     >
 
                                     @error('notes')
@@ -97,7 +97,7 @@
 
                             {{-- ================= ERROR UMUM (mis. duplikat baris) ================= --}}
                             @error('items')
-                                <div class="mt-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                                <div class="mt-6 rounded-lg border border-red-200 bg-red-50 dark:bg-red-900/30 px-4 py-3 text-sm font-medium text-red-700 dark:text-red-300">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -106,14 +106,14 @@
                             <div class="mt-8">
 
                                 <div class="flex items-center justify-between">
-                                    <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500">
+                                    <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                         Daftar Barang Diterima
                                     </h3>
 
                                     <button
                                         type="button"
                                         @click="addLine()"
-                                        class="inline-flex items-center gap-1 rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-2 text-xs font-semibold text-indigo-700 transition hover:bg-indigo-100"
+                                        class="inline-flex items-center gap-1 rounded-lg border border-indigo-200 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-2 text-xs font-semibold text-indigo-700 dark:text-indigo-300 transition hover:bg-indigo-100"
                                     >
                                         + Tambah Baris
                                     </button>
@@ -122,20 +122,20 @@
                                 <div class="mt-4 space-y-4">
 
                                     <template x-for="(line, index) in lines" :key="line.key">
-                                        <div class="rounded-xl border border-slate-200 p-4">
+                                        <div class="rounded-xl border border-slate-200 dark:border-slate-700 p-4">
 
                                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-12">
 
                                                 {{-- Barang --}}
                                                 <div class="sm:col-span-4">
-                                                    <label class="block text-xs font-semibold text-slate-600">Barang</label>
+                                                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300">Barang</label>
 
                                                     <select
                                                         :name="'items[' + index + '][item_id]'"
                                                         x-model="line.item_id"
                                                         @change="autofillPrice(line)"
                                                         required
-                                                        class="mt-1 block w-full rounded-lg border-slate-300 bg-white text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                        class="mt-1 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                                     >
                                                         <option value="">-- Pilih Barang --</option>
                                                         <template x-for="item in items" :key="item.id">
@@ -146,14 +146,14 @@
 
                                                 {{-- Supplier --}}
                                                 <div class="sm:col-span-3">
-                                                    <label class="block text-xs font-semibold text-slate-600">Supplier</label>
+                                                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300">Supplier</label>
 
                                                     <select
                                                         :name="'items[' + index + '][supplier_id]'"
                                                         x-model="line.supplier_id"
                                                         @change="autofillPrice(line)"
                                                         required
-                                                        class="mt-1 block w-full rounded-lg border-slate-300 bg-white text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                        class="mt-1 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                                     >
                                                         <option value="">-- Pilih Supplier --</option>
                                                         <template x-for="supplier in suppliers" :key="supplier.id">
@@ -164,7 +164,7 @@
 
                                                 {{-- Qty --}}
                                                 <div class="sm:col-span-2">
-                                                    <label class="block text-xs font-semibold text-slate-600">Qty</label>
+                                                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300">Qty</label>
 
                                                     <input
                                                         type="number"
@@ -173,13 +173,13 @@
                                                         :name="'items[' + index + '][quantity]'"
                                                         x-model.number="line.quantity"
                                                         required
-                                                        class="mt-1 block w-full rounded-lg border-slate-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                        class="mt-1 block w-full rounded-lg border-slate-300 dark:border-slate-600 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                                     >
                                                 </div>
 
                                                 {{-- Harga Beli --}}
                                                 <div class="sm:col-span-2">
-                                                    <label class="block text-xs font-semibold text-slate-600">Harga Beli</label>
+                                                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300">Harga Beli</label>
 
                                                     <input
                                                         type="number"
@@ -188,7 +188,7 @@
                                                         :name="'items[' + index + '][purchase_price]'"
                                                         x-model.number="line.purchase_price"
                                                         required
-                                                        class="mt-1 block w-full rounded-lg border-slate-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                        class="mt-1 block w-full rounded-lg border-slate-300 dark:border-slate-600 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                                     >
                                                 </div>
 
@@ -198,7 +198,7 @@
                                                         type="button"
                                                         @click="removeLine(index)"
                                                         x-show="lines.length > 1"
-                                                        class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-700 transition hover:bg-red-100"
+                                                        class="rounded-lg border border-red-200 bg-red-50 dark:bg-red-900/30 px-3 py-2 text-xs font-semibold text-red-700 dark:text-red-300 transition hover:bg-red-100"
                                                     >
                                                         Hapus
                                                     </button>
@@ -221,11 +221,11 @@
                             </div>
 
                             {{-- ================= BUTTON ================= --}}
-                            <div class="mt-8 flex flex-col-reverse gap-3 border-t border-slate-200 pt-6 sm:flex-row sm:justify-end">
+                            <div class="mt-8 flex flex-col-reverse gap-3 border-t border-slate-200 dark:border-slate-700 pt-6 sm:flex-row sm:justify-end">
 
                                 <a
                                     href="{{ route('goods-receipts.index') }}"
-                                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
+                                    class="inline-flex items-center justify-center rounded-lg border border-slate-300 dark:border-slate-600 px-5 py-2.5 text-sm font-semibold text-slate-600 dark:text-slate-300 transition hover:bg-slate-50"
                                 >
                                     Batal
                                 </a>

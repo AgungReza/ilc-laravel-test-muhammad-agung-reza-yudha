@@ -40,6 +40,7 @@
                             name="name"
                             type="text"
                             required
+                            maxlength="50"
                             autofocus
                             autocomplete="off"
                             value="{{ old('name') }}"
@@ -48,7 +49,7 @@
                         >
 
                         @error('name')
-                            <p class="mt-8 text-sm text-red-600">{{ $message }}</p>
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -79,15 +80,20 @@
                         </label>
 
                         <input
-                            id="phone"
-                            name="phone"
-                            type="text"
-                            required
-                            autocomplete="off"
-                            value="{{ old('phone') }}"
-                            placeholder="081234567890"
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        >
+                                id="phone"
+                                name="phone"
+                                type="text"
+                                required
+                                autocomplete="off"
+                                inputmode="numeric"
+                                pattern="[0-9]{10,15}"
+                                minlength="10"
+                                maxlength="15"
+                                value="{{ old('phone') }}"
+                                placeholder="081234567890"
+                                oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            >
 
                         @error('phone')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>

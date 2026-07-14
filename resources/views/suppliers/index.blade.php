@@ -55,30 +55,30 @@
                     <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
                         <thead class="bg-slate-50 dark:bg-gray-900/40">
                         <tr>
-                            <th class="px-6 py-4 text-left text-xs font-bold uppercase">No</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold uppercase">Supplier</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold uppercase">Telepon</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold uppercase">Barang</th>
-                            <th class="px-6 py-4 text-right text-xs font-bold uppercase">Aksi</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold dark:text-white uppercase">No</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold dark:text-white uppercase">Supplier</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold dark:text-white uppercase">Telepon</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold dark:text-white uppercase">Barang</th>
+                            <th class="px-6 py-4 text-right text-xs font-bold dark:text-white uppercase">Aksi</th>
                         </tr>
                         </thead>
 
-                        <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                        <tbody class="divide-y divide-slate-100 dark:text-white">
                         @forelse($suppliers as $supplier)
-                            <tr class="hover:bg-slate-50">
+                            <tr>
                                 <td class="px-6 py-4">{{ $suppliers->firstItem() + $loop->index }}</td>
 
                                 <td class="px-6 py-4">
-                                    <div class="font-semibold">{{ $supplier->name }}</div>
-                                    <div class="text-xs text-slate-500 dark:text-slate-400">
+                                    <div class="font-semibold dark:text-white">{{ $supplier->name }}</div>
+                                    <div class="text-xs text-slate-500 dark:text-white">
                                         {{ Str::limit($supplier->address,40) }}
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4">{{ $supplier->phone }}</td>
+                                <td class="px-6 py-4" dark:text-white >{{ $supplier->phone }}</td>
 
                                 <td class="px-6 py-4">
-                                    <span class="rounded-full bg-indigo-100 dark:bg-indigo-900/40 px-3 py-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300">
+                                    <span class="rounded-full bg-indigo-100 dark:bg-indigo-900/40 px-3 py-1 text-xs font-semibold text-indigo-700 dark:text-slate-100">
                                         📦 {{ $supplier->items_count }} Barang
                                     </span>
                                 </td>

@@ -27,22 +27,22 @@
 
                     <div class="mt-6 space-y-5">
                         <div>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">Nama Supplier</p>
-                            <p class="font-semibold">{{ $supplier->name }}</p>
+                            <p class="text-sm text-slate-500 dark:text-white">Nama Supplier</p>
+                            <p class="font-semibold dark:text-white">{{ $supplier->name }}</p>
                         </div>
 
                         <div>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">Alamat</p>
-                            <p>{{ $supplier->address }}</p>
+                            <p class="text-sm text-slate-500 dark:text-white">Alamat</p>
+                            <p class="dark:text-white">{{ $supplier->address }}</p>
                         </div>
 
                         <div>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">Nomor Telepon</p>
-                            <p>{{ $supplier->phone }}</p>
+                            <p class="text-sm text-slate-500 dark:text-white">Nomor Telepon</p>
+                            <p class="dark:text-white">{{ $supplier->phone }}</p>
                         </div>
 
                         <div>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">Jumlah Barang</p>
+                            <p class="text-sm text-slate-500 dark:text-white">Jumlah Barang</p>
                             <span class="rounded-full bg-indigo-100 dark:bg-indigo-900/40 px-3 py-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300">
                                 {{ $supplier->items->count() }} Barang
                             </span>
@@ -61,11 +61,11 @@
                         <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
                             <thead class="bg-slate-50 dark:bg-gray-900/40">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">No</th>
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">Barang</th>
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">Kategori</th>
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">Harga Beli</th>
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">Stok</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold dark:text-white uppercase">No</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold dark:text-white uppercase">Barang</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold dark:text-white uppercase">Kategori</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold dark:text-white uppercase">Harga Beli</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold dark:text-white uppercase">Stok</th>
                                 </tr>
                             </thead>
 

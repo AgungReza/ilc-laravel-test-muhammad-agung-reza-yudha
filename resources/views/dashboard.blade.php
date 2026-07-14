@@ -56,7 +56,7 @@
 
                         <a
                             href="{{ route('categories.create') }}"
-                            class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white dark:bg-gray-800/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/15"
+                            class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-gray-500 dark:bg-gray-800/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/15"
                         >
                             + Tambah Kategori
                         </a>
@@ -64,7 +64,7 @@
                         @if (auth()->user()->role === 'admin')
                             <a
                                 href="{{ route('users.create') }}"
-                                class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white dark:bg-gray-800/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/15"
+                                class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-gray-500 dark:bg-gray-800/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/15"
                             >
                                 + Tambah User
                             </a>
@@ -324,7 +324,7 @@
 
                             <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
                                 @forelse ($latestItems as $item)
-                                    <tr class="transition hover:bg-slate-50">
+                                    <tr class="transition hover:bg-slate-900">
                                         <td class="px-6 py-4">
                                             <p class="font-semibold text-slate-800 dark:text-slate-100">
                                                 {{ $item->name }}

@@ -73,7 +73,7 @@
 
                             @forelse($items as $item)
 
-                                <tr class="transition hover:bg-slate-50">
+                                <tr class="transition hover:bg-slate-900">
 
                                     {{-- Nomor --}}
                                     <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-500 dark:text-slate-400">

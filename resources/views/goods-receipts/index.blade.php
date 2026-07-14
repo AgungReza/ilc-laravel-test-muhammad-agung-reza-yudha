@@ -69,7 +69,7 @@
 
                             @forelse($goodsReceipts as $goodsReceipt)
 
-                                <tr class="transition hover:bg-slate-50">
+                                <tr class="transition hover:bg-slate-900">
 
                                     {{-- No. Transaksi --}}
                                     <td class="whitespace-nowrap px-6 py-4">

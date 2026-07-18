@@ -38,7 +38,7 @@
                             value="{{ old('name', $user->name) }}"
                             autocomplete="name"
                             autofocus
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
 
                         @error('name')
@@ -63,7 +63,7 @@
                             type="email"
                             value="{{ old('email', $user->email) }}"
                             autocomplete="email"
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
 
                         @error('email')
@@ -94,7 +94,7 @@
                                 disabled
                                 class="mt-2 block w-full cursor-not-allowed rounded-lg border-slate-300 dark:border-slate-600 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 shadow-sm"
                             >
-                                <option>Admin</option>
+                                <option class="dark:bg-slate-700 dark:text-slate-400">Admin</option>
                             </select>
 
                             <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
@@ -104,15 +104,16 @@
                             <select
                                 id="role"
                                 name="role"
-                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             >
-                                <option value="">
+                                <option value="" class="text-slate-400 dark:bg-gray-800 dark:text-slate-300">
                                     Pilih role
                                 </option>
 
                                 <option
                                     value="user"
                                     @selected(old('role', $user->role) === 'user')
+                                    class="dark:bg-gray-800 dark:text-white"
                                 >
                                     User
                                 </option>
@@ -120,6 +121,7 @@
                                 <option
                                     value="admin"
                                     @selected(old('role', $user->role) === 'admin')
+                                    class="dark:bg-gray-800 dark:text-white"
                                 >
                                     Admin
                                 </option>
@@ -148,7 +150,7 @@
                             type="password"
                             placeholder="Kosongkan jika tidak ingin mengganti"
                             autocomplete="new-password"
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
 
                         <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
@@ -177,7 +179,7 @@
                             type="password"
                             placeholder="Ulangi password baru"
                             autocomplete="new-password"
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
                     </div>
 

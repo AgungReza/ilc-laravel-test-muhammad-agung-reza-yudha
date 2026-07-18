@@ -52,7 +52,7 @@
                                     type="date"
                                     required
                                     value="{{ old('issue_date', $goodsIssue->issue_date->toDateString()) }}"
-                                    class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                 >
 
                                 @error('issue_date')
@@ -71,7 +71,7 @@
                                     type="text"
                                     value="{{ old('notes', $goodsIssue->notes) }}"
                                     placeholder="Contoh : Nama pelanggan / No. Nota"
-                                    class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                 >
 
                                 @error('notes')
@@ -121,11 +121,11 @@
                                                     x-model="line.item_id"
                                                     @change="onItemChange(line)"
                                                     required
-                                                    class="mt-1 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                    class="mt-1 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-sm text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                                 >
-                                                    <option value="">-- Pilih Barang --</option>
+                                                    <option value="" class="text-slate-400 dark:bg-gray-800 dark:text-slate-300">-- Pilih Barang --</option>
                                                     <template x-for="item in items" :key="item.id">
-                                                        <option :value="item.id" x-text="item.code + ' - ' + item.name" :selected="line.item_id == item.id"></option>
+                                                        <option :value="item.id" x-text="item.code + ' - ' + item.name" :selected="line.item_id == item.id" class="dark:bg-gray-800 dark:text-white"></option>
                                                     </template>
                                                 </select>
                                             </div>
@@ -146,14 +146,15 @@
                                                     :name="'items[' + index + '][supplier_id]'"
                                                     x-model="line.supplier_id"
                                                     required
-                                                    class="mt-1 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                    class="mt-1 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-sm text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                                 >
-                                                    <option value="">-- Pilih Supplier --</option>
+                                                    <option value="" class="text-slate-400 dark:bg-gray-800 dark:text-slate-300">-- Pilih Supplier --</option>
                                                     <template x-for="supplier in availableSuppliers(line)" :key="supplier.id">
                                                         <option
                                                             :value="supplier.id"
                                                             x-text="supplier.name + ' (stok: ' + supplier.stock + ')'"
                                                             :selected="line.supplier_id == supplier.id"
+                                                            class="dark:bg-gray-800 dark:text-white"
                                                         ></option>
                                                     </template>
                                                 </select>
@@ -177,7 +178,7 @@
                                                     :name="'items[' + index + '][quantity]'"
                                                     x-model.number="line.quantity"
                                                     required
-                                                    class="mt-1 block w-full rounded-lg border-slate-300 dark:border-slate-600 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                    class="mt-1 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-sm text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                                 >
                                             </div>
 
@@ -192,7 +193,7 @@
                                                     :name="'items[' + index + '][selling_price]'"
                                                     x-model.number="line.selling_price"
                                                     required
-                                                    class="mt-1 block w-full rounded-lg border-slate-300 dark:border-slate-600 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                    class="mt-1 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-sm text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                                 >
                                             </div>
 

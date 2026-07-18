@@ -57,7 +57,7 @@
 
                         <tbody class="divide-y divide-slate-100 dark:divide-slate-700 bg-white dark:bg-gray-800">
                             @forelse ($users as $user)
-                                <tr class="transition hover:bg-slate-50">
+                                <tr class="transition hover:bg-slate-900">
 
                                     <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-500 dark:text-slate-400">
                                         {{ $users->firstItem() + $loop->index }}

@@ -36,9 +36,9 @@
                             id="category_id"
                             name="category_id"
                             required
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
-                            <option value="">
+                            <option value="" class="text-slate-400 dark:bg-gray-800 dark:text-slate-300">
                                 -- Pilih Kategori --
                             </option>
 
@@ -46,6 +46,7 @@
                                 <option
                                     value="{{ $category->id }}"
                                     @selected(old('category_id', $item->category_id) == $category->id)
+                                    class="dark:bg-gray-800 dark:text-white"
                                 >
                                     {{ $category->name }}
                                 </option>
@@ -75,7 +76,7 @@
                             required
                             autocomplete="off"
                             value="{{ old('code', $item->code) }}"
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
 
                         @error('code')
@@ -101,7 +102,7 @@
                             required
                             autocomplete="off"
                             value="{{ old('name', $item->name) }}"
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
 
                         @error('name')
@@ -134,7 +135,7 @@
                                 required
                                 autocomplete="off"
                                 value="{{ old('price', $item->price) }}"
-                                class="block w-full rounded-r-lg border-slate-300 dark:border-slate-600 focus:border-indigo-500 focus:ring-indigo-500"
+                                class="block w-full rounded-r-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white focus:border-indigo-500 focus:ring-indigo-500"
                             >
                         </div>
 
@@ -161,7 +162,7 @@
                             required
                             autocomplete="off"
                             value="{{ old('unit', $item->unit) }}"
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
 
                         @error('unit')
@@ -185,7 +186,7 @@
                             name="description"
                             rows="3"
                             autocomplete="off"
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >{{ old('description', $item->description) }}</textarea>
 
                         @error('description')

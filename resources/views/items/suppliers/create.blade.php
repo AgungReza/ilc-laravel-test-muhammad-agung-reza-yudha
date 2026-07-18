@@ -41,29 +41,74 @@
                     >
                         @csrf
 
-                        {{-- ================= SUPPLIER ================= --}}
-                        <div>
-                            <label for="supplier_id" class="block text-sm font-semibold text-slate-700 dark:text-slate-200">
+                        {{-- ================= SUPPLIER (Custom Dropdown Alpine.js) ================= --}}
+                        <div
+                            class="relative"
+                            x-data="{
+                                open: false,
+                                selectedId: '{{ old('supplier_id') }}',
+                                selectedName: '',
+                                suppliers: {{ $suppliers->map(fn($s) => ['id' => $s->id, 'name' => $s->name])->values() }},
+                                init() {
+                                    const found = this.suppliers.find(s => s.id == this.selectedId);
+                                    this.selectedName = found ? found.name : '';
+                                },
+                                select(supplier) {
+                                    this.selectedId = supplier.id;
+                                    this.selectedName = supplier.name;
+                                    this.open = false;
+                                }
+                            }"
+                        >
+                            <label for="supplier_id_button" class="block text-sm font-semibold text-slate-700 dark:text-slate-200">
                                 Supplier
                             </label>
 
-                            <select
-                                id="supplier_id"
-                                name="supplier_id"
-                                required
-                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                            >
-                                <option value="">-- Pilih Supplier --</option>
+                            {{-- hidden input, ini yang dikirim ke server sebagai supplier_id --}}
+                            <input type="hidden" name="supplier_id" :value="selectedId">
 
-                                @foreach ($suppliers as $supplier)
-                                    <option
-                                        value="{{ $supplier->id }}"
-                                        @selected(old('supplier_id') == $supplier->id)
-                                    >
-                                        {{ $supplier->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            {{-- tombol trigger dropdown, menggantikan <select> native --}}
+                            <button
+                                id="supplier_id_button"
+                                type="button"
+                                @click="open = !open"
+                                @click.outside="open = false"
+                                class="mt-2 flex w-full items-center justify-between rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 px-3 py-2 text-left shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                            >
+                                {{-- teks petunjuk "-- Pilih Supplier --" sekarang PASTI putih di dark mode --}}
+                                <span
+                                    x-text="selectedName || '-- Pilih Supplier --'"
+                                    :class="selectedName ? 'text-slate-900 dark:text-white' : 'text-slate-400 dark:text-slate-300'"
+                                ></span>
+
+                                <svg
+                                    class="h-4 w-4 text-slate-400 transition-transform"
+                                    :class="{ 'rotate-180': open }"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            {{-- daftar pilihan supplier --}}
+                            <div
+                                x-show="open"
+                                x-transition
+                                class="absolute z-10 mt-1 w-full rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-gray-800 shadow-lg"
+                                style="display: none;"
+                            >
+                                <ul class="max-h-60 overflow-auto py-1 text-sm">
+                                    <template x-for="supplier in suppliers" :key="supplier.id">
+                                        <li
+                                            @click="select(supplier)"
+                                            class="cursor-pointer px-3 py-2 text-slate-900 dark:text-white hover:bg-indigo-50 dark:hover:bg-gray-700"
+                                            x-text="supplier.name"
+                                        ></li>
+                                    </template>
+                                </ul>
+                            </div>
 
                             @error('supplier_id')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>

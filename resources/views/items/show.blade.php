@@ -33,12 +33,12 @@
                     <div class="mt-6 space-y-5">
                         <div>
                             <p class="text-sm text-slate-500 dark:text-slate-400">Kode Barang</p>
-                            <p class="font-semibold">{{ $item->code }}</p>
+                            <p class="font-semibold dark:text-white">{{ $item->code }}</p>
                         </div>
 
                         <div>
                             <p class="text-sm text-slate-500 dark:text-slate-400">Nama Barang</p>
-                            <p class="font-semibold">{{ $item->name }}</p>
+                            <p class="font-semibold dark:text-white">{{ $item->name }}</p>
                         </div>
 
                         <div>
@@ -50,12 +50,12 @@
 
                         <div>
                             <p class="text-sm text-slate-500 dark:text-slate-400">Satuan</p>
-                            <p class="font-semibold">{{ $item->unit }}</p>
+                            <p class="font-semibold dark:text-white">{{ $item->unit }}</p>
                         </div>
 
                         <div>
                             <p class="text-sm text-slate-500 dark:text-slate-400">Harga Jual</p>
-                            <p class="font-semibold">
+                            <p class="font-semibold dark:text-white">
                                 Rp {{ number_format($item->price,0,',','.') }}
                             </p>
                         </div>
@@ -107,15 +107,15 @@
                         <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
                             <thead class="bg-slate-50 dark:bg-gray-900/40">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">Supplier</th>
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">Harga Beli</th>
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">Stok</th>
-                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">Stok Minimum</th>
-                                    <th class="px-6 py-3 text-right text-xs font-bold uppercase">Aksi</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase dark:text-slate-400">Supplier</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase dark:text-slate-400">Harga Beli</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase dark:text-slate-400">Stok</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold uppercase dark:text-slate-400">Stok Minimum</th>
+                                    <th class="px-6 py-3 text-right text-xs font-bold uppercase dark:text-slate-400">Aksi</th>
                                 </tr>
                             </thead>
 
-                            <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                            <tbody class="divide-y divide-slate-100 dark:text-white">
                                 @forelse($item->itemSuppliers as $itemSupplier)
                                     <tr>
                                         <td class="px-6 py-4 font-semibold">

@@ -56,9 +56,9 @@
                                 id="category_id"
                                 name="category_id"
                                 required
-                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             >
-                                <option value="">
+                                <option value="" class="text-slate-400 dark:bg-gray-800 dark:text-slate-300">
                                     -- Pilih Kategori --
                                 </option>
 
@@ -66,6 +66,7 @@
                                     <option
                                         value="{{ $category->id }}"
                                         @selected(old('category_id') == $category->id)
+                                        class="dark:bg-gray-800 dark:text-white"
                                     >
                                         {{ $category->name }}
                                     </option>
@@ -96,7 +97,7 @@
                                 autocomplete="off"
                                 value="{{ old('code') }}"
                                 placeholder="Contoh : BRG-001"
-                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             >
 
                             @error('code')
@@ -124,7 +125,7 @@
                                 autocomplete="off"
                                 value="{{ old('name') }}"
                                 placeholder="Contoh : Beras 5 Kg"
-                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             >
 
                             @error('name')
@@ -158,7 +159,7 @@
                                     autocomplete="off"
                                     value="{{ old('price') }}"
                                     placeholder="75000"
-                                    class="block w-full rounded-r-lg border-slate-300 dark:border-slate-600 focus:border-indigo-500 focus:ring-indigo-500"
+                                    class="block w-full rounded-r-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white focus:border-indigo-500 focus:ring-indigo-500"
                                 >
                             </div>
 
@@ -186,7 +187,7 @@
                                 autocomplete="off"
                                 value="{{ old('unit') }}"
                                 placeholder="Contoh : Kg, Pcs, Karung"
-                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             >
 
                             @error('unit')
@@ -211,7 +212,7 @@
                                 rows="3"
                                 autocomplete="off"
                                 placeholder="Catatan tambahan mengenai barang ini"
-                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             >{{ old('description') }}</textarea>
 
                             @error('description')
@@ -221,7 +222,7 @@
                             @enderror
                         </div>
 
-                        <div class="mt-6 rounded-xl border border-sky-200 bg-sky-50 p-4 text-sm text-sky-800">
+                        <div class="mt-6 rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50 dark:bg-sky-900/30 p-4 text-sm text-sky-800 dark:text-sky-300">
                             Supplier, harga beli, dan stok awal dapat ditambahkan
                             setelah barang ini tersimpan, melalui halaman detail barang.
                         </div>

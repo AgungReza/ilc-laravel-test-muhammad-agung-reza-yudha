@@ -38,7 +38,7 @@
                             placeholder="Masukkan nama user"
                             autocomplete="name"
                             autofocus
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
 
                         @error('name')
@@ -64,7 +64,7 @@
                             value="{{ old('email') }}"
                             placeholder="nama@example.com"
                             autocomplete="email"
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
 
                         @error('email')
@@ -86,15 +86,16 @@
                         <select
                             id="role"
                             name="role"
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
-                            <option value="">
+                            <option value="" class="text-slate-400 dark:bg-gray-800 dark:text-slate-300">
                                 Pilih role
                             </option>
 
                             <option
                                 value="user"
                                 @selected(old('role') === 'user')
+                                class="dark:bg-gray-800 dark:text-white"
                             >
                                 User
                             </option>
@@ -102,6 +103,7 @@
                             <option
                                 value="admin"
                                 @selected(old('role') === 'admin')
+                                class="dark:bg-gray-800 dark:text-white"
                             >
                                 Admin
                             </option>
@@ -129,7 +131,7 @@
                             type="password"
                             placeholder="Minimal 8 karakter"
                             autocomplete="new-password"
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
 
                         <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
@@ -158,7 +160,7 @@
                             type="password"
                             placeholder="Ulangi password"
                             autocomplete="new-password"
-                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="mt-2 block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-gray-800 text-slate-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
                     </div>
 

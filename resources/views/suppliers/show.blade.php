@@ -69,7 +69,7 @@
                                 </tr>
                             </thead>
 
-                            <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                            <tbody class="divide-y divide-slate-100 dark:text-white">
                                 @forelse($supplier->items as $item)
                                     <tr>
                                         <td class="px-6 py-4">{{ $loop->iteration }}</td>
@@ -79,13 +79,13 @@
                                                 {{ $item->name }}
                                             </a>
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-4 dark:text-white">
                                             {{ $item->category?->name ?? '-' }}
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-4 dark:text-white">
                                             Rp {{ number_format($item->pivot->purchase_price,0,',','.') }}
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-4 dark:text-white">
                                             @if($item->pivot->stock > $item->pivot->minimum_stock)
                                                 <span class="rounded-full bg-emerald-100 dark:bg-emerald-900/40 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
                                                     {{ $item->pivot->stock }}
